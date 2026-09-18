@@ -9,7 +9,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
         
         body {
-            background: url('wallpaper.png') no-repeat center center fixed;
+            background: url('bg.jpg') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             display: flex;
@@ -50,11 +50,11 @@
             z-index: 10;
         }
 
-        /* Обновленная сетка под стиль Snowy-Fluffy */
+        /* Сетка Bento-container увеличилась по высоте, чтобы вместить табличку */
         .bento-container {
             display: grid;
             grid-template-columns: repeat(3, 170px);
-            grid-auto-rows: 140px;
+            grid-auto-rows: 150px;
             gap: 20px;
         }
 
@@ -84,27 +84,46 @@
             box-shadow: 0 15px 35px rgba(229, 169, 61, 0.15);
         }
 
-        /* Пропорции ячеек как у Snowy */
-        .profile-block { grid-column: span 2; grid-row: span 2; }
+        .profile-block { grid-column: span 2; grid-row: span 2; justify-content: flex-start; padding-top: 25px; }
         .fox-right-block { grid-column: span 1; grid-row: span 2; }
         .fox-left-block { grid-column: span 1; grid-row: span 2; }
         .links-block { grid-column: span 2; grid-row: span 1; }
         .status-block { grid-column: span 1; grid-row: span 1; }
 
         .avatar-img {
-            width: 85px;
-            height: 85px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             border: 3px solid #e5a93d;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             object-fit: cover;
         }
 
         h1 { font-size: 24px; color: #fff; margin-bottom: 2px; font-weight: 700; letter-spacing: -0.5px; }
-        .username { color: #e5a93d; font-family: monospace; font-size: 13px; margin-bottom: 10px; }
-        .bio { font-size: 13px; color: #a2b7bc; text-align: center; line-height: 1.5; }
+        .username { color: #e5a93d; font-family: monospace; font-size: 13px; margin-bottom: 8px; }
+        .bio { font-size: 13px; color: #a2b7bc; text-align: center; line-height: 1.4; margin-bottom: 16px; }
 
-        /* Идеальное отображение картинок песцов внутри блоков */
+        /* 🍏 ВНУТРЕННЯЯ ТАБЛИЧКА ИНФОРМАЦИИ В СТИЛЕ IOS */
+        .info-box {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 12px 16px;
+            font-size: 13px;
+            color: #bcd6cf;
+            line-height: 1.6;
+            text-align: center;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.02);
+        }
+        
+        .info-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
         .bento-img {
             width: 100%;
             height: 100%;
@@ -147,39 +166,42 @@
     <div class="main-board">
         <div class="bento-container">
             
-            <!-- 1. Профиль (верхний левый блок) -->
+            <!-- Блок профиля с новой вложенной табличкой информации -->
             <div class="bento-item profile-block">
                 <img src="avatar.png" alt="Avatar" class="avatar-img">
                 <h1>SerSessil</h1>
                 <div class="username">@SerSessil</div>
                 <p class="bio">Linux & Tiling WM Enthusiast.<br>Current setup: Forest Meadow 🌲</p>
+                
+                <!-- Новая аккуратная карточка с инфой -->
+                <div class="info-box">
+                    <div class="info-line">❤️ 17yo programmer from Russia 🇷🇺</div>
+                    <!-- Замените текст ориентации на свой (например: Straight, Bi, Gay и т.д.) -->
+                    <div class="info-line" style="color: #a2b7bc; font-size: 12px; margin-top: 2px;">Orientation: Gay</div>
+                </div>
             </div>
 
-            <!-- 2. Правый верхний блок: Пушистый песец 2 -->
             <div class="bento-item fox-right-block" style="padding: 0;">
                 <img src="fox2.jpg" class="bento-img" alt="Arctic Fox 2">
             </div>
 
-            <!-- 3. Левый нижний блок: Снежный песец 1 -->
             <div class="bento-item fox-left-block" style="padding: 0;">
                 <img src="fox1.jpg" class="bento-img" alt="Arctic Fox 1">
             </div>
 
-            <!-- 4. Блок ссылок (центр-низ) -->
             <div class="bento-item links-block">
                 <div class="social-row">
                     <a href="https://github.com" target="_blank" class="social-btn">
                         <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
                         GitHub
                     </a>
-                    <a href="https://steamcommunity.com/profiles/76561199407314442/" target="_blank" class="social-btn">
+                    <a href="https://steamcommunity.com" target="_blank" class="social-btn">
                         <svg viewBox="0 0 24 24"><path d="M21.822 7.436a5.5 5.5 0 0 0-7.391-4.14L9.89 5.861a5.503 5.503 0 0 0-4.512 3.653L.664 11.23a.75.75 0 0 0-.122 1.218l3.96 3.428a5.496 5.496 0 0 0 5.441 1.309l4.542-2.565a5.501 5.501 0 0 0 7.337-7.184zm-16.444 4.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
                         Steam
                     </a>
                 </div>
             </div>
 
-            <!-- 5. Статус (правый нижний блок) -->
             <div class="bento-item status-block">
                 <span class="status-title">Status</span>
                 <div class="status-value">
