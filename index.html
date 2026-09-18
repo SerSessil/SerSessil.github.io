@@ -49,21 +49,22 @@
             z-index: 10;
         }
 
+        /* Обновленная сетка под стиль Snowy-Fluffy */
         .bento-container {
             display: grid;
             grid-template-columns: repeat(3, 170px);
-            grid-auto-rows: 160px;
+            grid-auto-rows: 140px;
             gap: 20px;
         }
 
-        /* Настоящее премиальное матовое стекло iOS */
+        /* Премиальное матовое стекло iOS */
         .bento-item {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(168, 196, 216, 0.18);
             border-radius: 32px;
-            padding: 24px;
+            padding: 20px;
             color: #dce9ed;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25),
                         inset 0 1px 2px rgba(255, 255, 255, 0.05);
@@ -82,33 +83,32 @@
             box-shadow: 0 15px 35px rgba(229, 169, 61, 0.15);
         }
 
+        /* Пропорции ячеек как у Snowy */
         .profile-block { grid-column: span 2; grid-row: span 2; }
-        .photo-block { grid-column: span 1; grid-row: span 2; }
+        .fox-right-block { grid-column: span 1; grid-row: span 2; }
+        .fox-left-block { grid-column: span 1; grid-row: span 2; }
         .links-block { grid-column: span 2; grid-row: span 1; }
         .status-block { grid-column: span 1; grid-row: span 1; }
 
-        /* ИСПРАВЛЕННЫЙ СТИЛЬ КРУГЛОЙ АВАТАРКИ */
         .avatar-img {
-            width: 90px;
-            height: 90px;
+            width: 85px;
+            height: 85px;
             border-radius: 50%;
             border: 3px solid #e5a93d;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             object-fit: cover;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
-        h1 { font-size: 26px; color: #fff; margin-bottom: 2px; font-weight: 700; letter-spacing: -0.5px; }
-        .username { color: #e5a93d; font-family: monospace; font-size: 14px; margin-bottom: 12px; }
-        .bio { font-size: 13.5px; color: #a2b7bc; text-align: center; line-height: 1.5; }
+        h1 { font-size: 24px; color: #fff; margin-bottom: 2px; font-weight: 700; letter-spacing: -0.5px; }
+        .username { color: #e5a93d; font-family: monospace; font-size: 13px; margin-bottom: 10px; }
+        .bio { font-size: 13px; color: #a2b7bc; text-align: center; line-height: 1.5; }
 
-        .forest-decor {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+        /* Идеальное отображение картинок песцов внутри блоков */
+        .bento-img {
+            width: 100%;
             height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
         }
 
         .social-row {
@@ -123,20 +123,19 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             color: #b0cacc;
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
-            transition: all 0.2s;
         }
-        .social-btn svg { width: 28px; height: 28px; fill: #b0cacc; transition: all 0.2s; }
+        .social-btn svg { width: 26px; height: 26px; fill: #b0cacc; transition: all 0.2s; }
         .social-btn:hover { color: #e5a93d; }
         .social-btn:hover svg { transform: translateY(-2px); fill: #e5a93d; }
 
         .status-title { font-size: 11px; text-transform: uppercase; color: #78959a; margin-bottom: 6px; letter-spacing: 1.5px; font-weight: 600; }
-        .status-value { font-size: 15px; font-weight: 600; color: #bcd6cf; display: flex; align-items: center; gap: 8px; }
-        .pulse-dot { width: 9px; height: 9px; background: #4ef2bc; border-radius: 50%; box-shadow: 0 0 10px #4ef2bc; }
+        .status-value { font-size: 14px; font-weight: 600; color: #bcd6cf; display: flex; align-items: center; gap: 8px; }
+        .pulse-dot { width: 8px; height: 8px; background: #4ef2bc; border-radius: 50%; box-shadow: 0 0 10px #4ef2bc; }
     </style>
 </head>
 <body>
@@ -147,7 +146,7 @@
     <div class="main-board">
         <div class="bento-container">
             
-            <!-- Блок профиля: Марселин теперь круглая, а текст вернулся на место -->
+            <!-- 1. Профиль (верхний левый блок) -->
             <div class="bento-item profile-block">
                 <img src="avatar.png" alt="Avatar" class="avatar-img">
                 <h1>SerSessil</h1>
@@ -155,13 +154,17 @@
                 <p class="bio">Linux & Tiling WM Enthusiast.<br>Current setup: Forest Meadow 🌲</p>
             </div>
 
-            <div class="bento-item photo-block">
-                <div class="forest-decor">
-                    <span style="font-size: 55px; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));">🌲</span>
-                    <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #78959a;">Meadow</span>
-                </div>
+            <!-- 2. Правый верхний блок: Пушистый песец 2 -->
+            <div class="bento-item fox-right-block" style="padding: 0;">
+                <img src="fox2.jpg" class="bento-img" alt="Arctic Fox 2">
             </div>
 
+            <!-- 3. Левый нижний блок: Снежный песец 1 -->
+            <div class="bento-item fox-left-block" style="padding: 0;">
+                <img src="fox1.jpg" class="bento-img" alt="Arctic Fox 1">
+            </div>
+
+            <!-- 4. Блок ссылок (центр-низ) -->
             <div class="bento-item links-block">
                 <div class="social-row">
                     <a href="https://github.com" target="_blank" class="social-btn">
@@ -175,6 +178,7 @@
                 </div>
             </div>
 
+            <!-- 5. Статус (правый нижний блок) -->
             <div class="bento-item status-block">
                 <span class="status-title">Status</span>
                 <div class="status-value">
