@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SerSessil | Bento Profile</title>
-    <!-- Подключаем супер-надежные иконки Bootstrap Icons -->
-    <link rel="stylesheet" href="https://jsdelivr.net">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         
@@ -17,6 +15,24 @@
             align-items: center;
             overflow: hidden;
             position: relative;
+        }
+
+        /* Анимированный лесной туман и частицы на фоне */
+        .bg-particle {
+            position: absolute;
+            background: rgba(78, 242, 188, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(40px);
+            z-index: 1;
+        }
+        .p1 { width: 300px; height: 300px; top: 10%; left: 10%; animation: float-bg 20s infinite ease-in-out; }
+        .p2 { width: 400px; height: 400px; bottom: 10%; right: 10%; animation: float-bg 25s infinite ease-in-out-reverse; }
+
+        @keyframes float-bg {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 40px) scale(1.1); }
+            100% { transform: translate(0, 0) scale(1); }
         }
 
         .bento-container {
@@ -56,25 +72,38 @@
         .links-block { grid-column: span 2; grid-row: span 1; }
         .status-block { grid-column: span 1; grid-row: span 1; }
 
-        .avatar {
+        /* Кастомный текстовый аватар вместо ломающихся картинок */
+        .avatar-text {
             width: 100px;
             height: 100px;
             border-radius: 50%;
             border: 3px solid #e5a93d;
+            background: rgba(229, 169, 61, 0.1);
             margin-bottom: 12px;
-            object-fit: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 42px;
+            font-weight: 800;
+            color: #e5a93d;
+            text-shadow: 0 0 10px rgba(229, 169, 61, 0.3);
         }
 
         h1 { font-size: 24px; color: #fff; margin-bottom: 2px; }
         .username { color: #e5a93d; font-family: monospace; font-size: 14px; margin-bottom: 10px; }
         .bio { font-size: 13.5px; color: #a2b7bc; text-align: center; line-height: 1.4; }
 
-        .pet-img {
-            width: 100%;
+        /* Внутренний красивый декор для правой плитки */
+        .forest-decor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             height: 100%;
-            object-fit: cover;
-            border-radius: 12px;
+            color: #78959a;
         }
+        .forest-decor i { font-size: 48px; color: #496C6C; }
 
         .social-row {
             display: flex;
@@ -89,85 +118,60 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             color: #dce9ed;
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
-            transition: color 0.2s;
         }
-        .social-btn i { font-size: 24px; color: #e5a93d; }
+        .social-btn svg { width: 24px; height: 24px; fill: #e5a93d; transition: transform 0.2s; }
         .social-btn:hover { color: #fff; }
-        .social-btn:hover i { transform: scale(1.1); }
+        .social-btn:hover svg { transform: scale(1.1); fill: #fff; }
 
         .status-title { font-size: 11px; text-transform: uppercase; color: #78959a; margin-bottom: 5px; letter-spacing: 1px; }
         .status-value { font-size: 15px; font-weight: 600; color: #bcd6cf; display: flex; align-items: center; gap: 6px; }
         .pulse-dot { width: 8px; height: 8px; background: #4ef2bc; border-radius: 50%; box-shadow: 0 0 8px #4ef2bc; }
-
-        /* ============================================================
-           🐾 ЖЕЛЕЗОБЕТОННЫЕ АНИМАЦИИ ПИТОМЦЕВ (БЕГАЮТ ПО ЭКРАНУ)
-           ============================================================ */
-        .floating-pet {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            pointer-events: none;
-            user-select: none;
-            z-index: 1;
-        }
-
-        @keyframes run-left-right {
-            0% { left: -100px; top: 15vh; transform: scaleX(1); }
-            50% { left: 110vw; top: 25vh; transform: scaleX(1); }
-            51% { transform: scaleX(-1); }
-            100% { left: -100px; top: 15vh; transform: scaleX(-1); }
-        }
-        @keyframes bounce-around {
-            0% { right: 10%; bottom: -100px; }
-            30% { right: 15%; bottom: 40vh; }
-            60% { right: 25%; bottom: 10vh; }
-            100% { right: 10%; bottom: -100px; }
-        }
-
-        .pet1 { animation: run-left-right 20s infinite linear; }
-        .pet2 { animation: bounce-around 15s infinite ease-in-out; }
     </style>
 </head>
 <body>
 
-    <!-- Настоящие, рабочие анимированные пиксельные питомцы-помощники -->
-    <img src="https://openmoji.org" class="floating-pet pet1" alt="cat">
-    <img src="https://openmoji.org" class="floating-pet pet2" alt="wolf">
+    <!-- Встроенные автономные частицы тумана -->
+    <div class="bg-particle p1"></div>
+    <div class="bg-particle p2"></div>
 
     <div class="bento-container">
         
+        <!-- Блок профиля с текстовой иконкой -->
         <div class="bento-item profile-block">
-            <!-- Исправленная прямая CDN-ссылка на вашу аватарку с GitHub -->
-            <img src="https://githubusercontent.com" alt="Avatar" class="avatar">
+            <div class="avatar-text">S</div>
             <h1>SerSessil</h1>
             <div class="username">@SerSessil</div>
             <p class="bio">Linux & Tiling WM Enthusiast.<br>Current setup: Forest Meadow 🌲</p>
         </div>
 
-        <div class="bento-item photo-block" style="padding: 10px;">
-            <!-- Ставим надежную красивую картинку лесного тумана под наш стиль -->
-            <img src="https://unsplash.com" class="pet-img" alt="Forest Meadow">
+        <!-- Правый декоративный блок под стиль темы -->
+        <div class="bento-item photo-block">
+            <div class="forest-decor">
+                <span style="font-size: 50px;">🌲</span>
+                <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Meadow</span>
+            </div>
         </div>
 
+        <!-- Кнопки со встроенными SVG иконками, которые загрузятся всегда -->
         <div class="bento-item links-block">
             <div class="social-row">
                 <a href="https://github.com" target="_blank" class="social-btn">
-                    <i class="bi bi-github"></i>GitHub
+                    <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                    GitHub
                 </a>
                 <a href="https://t.me" target="_blank" class="social-btn">
-                    <i class="bi bi-telegram"></i>Telegram
-                </a>
-                <a href="#" class="social-btn">
-                    <i class="bi bi-discord"></i>Discord
+                    <svg viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.137-1.309 1.325-1.97 1.94-.206.193-.346.325-.373.353-.06.06-.063.114-.06.165.004.102.118.255.244.338l.182.12c.795.526 1.442.955 1.956 1.29.475.308.835.474 1.134.444.174-.017.35-.182.438-.655c.214-1.144.73-4.18 1.03-5.744.025-.133.013-.284-.005-.353-.018-.07-.074-.15-.157-.168a1.2 1.2 0 0 0-.311-.005z"/></svg>
+                    Telegram
                 </a>
             </div>
         </div>
 
+        <!-- Блок статуса -->
         <div class="bento-item status-block">
             <span class="status-title">Status</span>
             <div class="status-value">
