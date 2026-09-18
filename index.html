@@ -72,7 +72,7 @@
         .links-block { grid-column: span 2; grid-row: span 1; }
         .status-block { grid-column: span 1; grid-row: span 1; }
 
-        /* Кастомный текстовый аватар вместо ломающихся картинок */
+        /* Кастомный текстовый аватар */
         .avatar-text {
             width: 100px;
             height: 100px;
@@ -93,7 +93,7 @@
         .username { color: #e5a93d; font-family: monospace; font-size: 14px; margin-bottom: 10px; }
         .bio { font-size: 13.5px; color: #a2b7bc; text-align: center; line-height: 1.4; }
 
-        /* Внутренний красивый декор для правой плитки */
+        /* Елочка */
         .forest-decor {
             display: flex;
             flex-direction: column;
@@ -103,7 +103,6 @@
             height: 100%;
             color: #78959a;
         }
-        .forest-decor i { font-size: 48px; color: #496C6C; }
 
         .social-row {
             display: flex;
@@ -135,13 +134,11 @@
 </head>
 <body>
 
-    <!-- Встроенные автономные частицы тумана -->
     <div class="bg-particle p1"></div>
     <div class="bg-particle p2"></div>
 
     <div class="bento-container">
         
-        <!-- Блок профиля с текстовой иконкой -->
         <div class="bento-item profile-block">
             <div class="avatar-text">S</div>
             <h1>SerSessil</h1>
@@ -149,7 +146,6 @@
             <p class="bio">Linux & Tiling WM Enthusiast.<br>Current setup: Forest Meadow 🌲</p>
         </div>
 
-        <!-- Правый декоративный блок под стиль темы -->
         <div class="bento-item photo-block">
             <div class="forest-decor">
                 <span style="font-size: 50px;">🌲</span>
@@ -157,21 +153,19 @@
             </div>
         </div>
 
-        <!-- Кнопки со встроенными SVG иконками, которые загрузятся всегда -->
         <div class="bento-item links-block">
             <div class="social-row">
-                <a href="https://github.com" target="_blank" class="social-btn">
+                <a href="https://github.com/SerSessil" target="_blank" class="social-btn">
                     <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
                     GitHub
                 </a>
-                <a href="https://t.me" target="_blank" class="social-btn">
-                    <svg viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.137-1.309 1.325-1.97 1.94-.206.193-.346.325-.373.353-.06.06-.063.114-.06.165.004.102.118.255.244.338l.182.12c.795.526 1.442.955 1.956 1.29.475.308.835.474 1.134.444.174-.017.35-.182.438-.655c.214-1.144.73-4.18 1.03-5.744.025-.133.013-.284-.005-.353-.018-.07-.074-.15-.157-.168a1.2 1.2 0 0 0-.311-.005z"/></svg>
-                    Telegram
+                <a href="https://steamcommunity.com/profiles/76561199407314442/" target="_blank" class="social-btn">
+                    <svg viewBox="0 0 24 24"><path d="M21.822 7.436a5.5 5.5 0 0 0-7.391-4.14L9.89 5.861a5.503 5.503 0 0 0-4.512 3.653L.664 11.23a.75.75 0 0 0-.122 1.218l3.96 3.428a5.496 5.496 0 0 0 5.441 1.309l4.542-2.565a5.501 5.501 0 0 0 7.337-7.184zm-16.444 4.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                    Steam
                 </a>
             </div>
         </div>
 
-        <!-- Блок статуса -->
         <div class="bento-item status-block">
             <span class="status-title">Status</span>
             <div class="status-value">
