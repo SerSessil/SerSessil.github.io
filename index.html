@@ -3,100 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SerSessil | Profile</title>
+    <title>SerSessil | Bento Profile</title>
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         
         body {
             background: linear-gradient(135deg, #101e24 0%, #162d2c 50%, #203d3a 100%);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            position: relative;
         }
 
-        .card {
-            background: rgba(16, 30, 36, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(168, 196, 216, 0.2);
+        /* Сетка Bento-Box */
+        .bento-container {
+            display: grid;
+            grid-template-columns: repeat(3, 160px);
+            grid-auto-rows: 150px;
+            gap: 16px;
+            z-index: 10;
+        }
+
+        /* Общий стиль для всех плиток (эффект стекла) */
+        .bento-item {
+            background: rgba(16, 30, 36, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 196, 216, 0.15);
             border-radius: 24px;
-            width: 450px;
-            padding: 30px;
-            text-align: center;
+            padding: 20px;
             color: #dce9ed;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .card:hover { transform: translateY(-5px); border-color: #e5a93d; }
+        .bento-item:hover {
+            transform: translateY(-4px);
+            border-color: #e5a93d;
+            box-shadow: 0 20px 40px rgba(229, 169, 61, 0.15);
+        }
 
+        /* Объединение ячеек сетки под разные блоки */
+        .profile-block { grid-column: span 2; grid-row: span 2; }
+        .photo-block { grid-column: span 1; grid-row: span 2; }
+        .links-block { grid-column: span 2; grid-row: span 1; }
+        .status-block { grid-column: span 1; grid-row: span 1; }
+
+        /* Элементы профиля */
         .avatar {
-            width: 110px;
-            height: 110px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             border: 3px solid #e5a93d;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             object-fit: cover;
         }
 
-        h1 { font-size: 24px; margin-bottom: 5px; color: #fff; font-weight: 700; }
-        .username { color: #e5a93d; font-size: 14px; margin-bottom: 15px; font-family: monospace; }
-        .bio { font-size: 14px; color: #a2b7bc; line-height: 1.5; margin-bottom: 25px; }
+        h1 { font-size: 24px; color: #fff; margin-bottom: 2px; }
+        .username { color: #e5a93d; font-family: monospace; font-size: 14px; margin-bottom: 10px; }
+        .bio { font-size: 13.5px; color: #a2b7bc; text-align: center; line-height: 1.4; }
 
-        .links { display: flex; flex-direction: column; gap: 12px; }
-        
-        .link-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: rgba(229, 169, 61, 0.1);
-            border: 1px solid rgba(229, 169, 61, 0.3);
-            color: #eaf2f5;
-            text-decoration: none;
-            padding: 12px;
+        /* Блок с картинкой питомца */
+        .pet-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             border-radius: 12px;
-            font-weight: 500;
-            font-size: 15px;
-            transition: all 0.2s ease;
         }
 
-        .link-item:hover {
-            background: #e5a93d;
-            color: #101e24;
-            font-weight: 600;
-            box-shadow: 0 0 15px rgba(229, 169, 61, 0.4);
+        /* Горизонтальные кнопки соцсетей */
+        .social-row {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: space-around;
+            align-items: center;
+            gap: 10px;
         }
+
+        .social-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: #dce9ed;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .social-btn i { font-size: 24px; color: #e5a93d; }
+        .social-btn:hover { color: #fff; }
+        .social-btn:hover i { transform: scale(1.1); }
+
+        .status-title { font-size: 11px; text-transform: uppercase; color: #78959a; margin-bottom: 5px; letter-spacing: 1px; }
+        .status-value { font-size: 15px; font-weight: 600; color: #bcd6cf; display: flex; align-items: center; gap: 6px; }
+        .pulse-dot { width: 8px; height: 8px; background: #4ef2bc; border-radius: 50%; box-shadow: 0 0 8px #4ef2bc; }
+
+        /* ============================================================
+           🐾 ПЛАВАЮЩИЕ И ИГРАЮЩИЕ ПИТОМЦЫ (GIFS) НА ЭКРАНЕ
+           ============================================================ */
+        .floating-pet {
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            pointer-events: none; /* Пропускают клики сквозь себя */
+            user-select: none;
+            z-index: 1;
+            image-rendering: pixelated;
+        }
+
+        /* Задаем разные траектории движения */
+        @keyframes float-behavior-1 {
+            0% { transform: translate(10vw, 15vh) rotate(0deg); }
+            50% { transform: translate(15vw, 60vh) rotate(5deg); }
+            100% { transform: translate(10vw, 15vh) rotate(0deg); }
+        }
+        @keyframes float-behavior-2 {
+            0% { transform: translate(80vw, 70vh) scaleX(1); }
+            50% { transform: translate(25vw, 80vh) scaleX(-1); }
+            100% { transform: translate(80vw, 70vh) scaleX(1); }
+        }
+        @keyframes float-behavior-3 {
+            0% { transform: translate(85vw, 10vh) translateY(0); }
+            50% { transform: translate(75vw, 30vh) translateY(-15px); }
+            100% { transform: translate(85vw, 10vh) translateY(0); }
+        }
+
+        .pet1 { animation: float-behavior-1 25s infinite ease-in-out; }
+        .pet2 { animation: float-behavior-2 35s infinite ease-in-out; }
+        .pet3 { animation: float-behavior-3 18s infinite ease-in-out; }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <!-- Подгружаем вашу официальную аватарку с GitHub -->
-        <img src="https://github.com" alt="Avatar" class="avatar">
-        
-        <h1>SerSessil</h1>
-        <div class="username">@SerSessil</div>
-        
-        <p class="bio">
-            Linux enthusiast & Sway WM user. <br>
-            Current setup: Forest Meadow 🌲
-        </p>
+    <!-- 🐾 Летающие гиф-питомцы из коллекции Snowy Fluffy (кавайные котики и лисички) -->
+    <img src="https://giphy.com" class="floating-pet pet1" alt="pet">
+    <img src="https://giphy.com" class="floating-pet pet2" alt="pet">
+    <img src="https://giphy.com" class="floating-pet pet3" alt="pet">
 
-        <div class="links">
-            <a href="https://github.com" target="_blank" class="link-item">
-                <i class="fab fa-github"></i> GitHub
-            </a>
-            <a href="https://t.me" target="_blank" class="link-item">
-                <i class="fab fa-telegram"></i> Telegram
-            </a>
-            <a href="#" class="link-item">
-                <i class="fab fa-discord"></i> Discord: sersessil
-            </a>
+    <div class="bento-container">
+        
+        <!-- Блок 1: Главный профиль -->
+        <div class="bento-item profile-block">
+            <img src="https://github.com" alt="Avatar" class="avatar">
+            <h1>SerSessil</h1>
+            <div class="username">@SerSessil</div>
+            <p class="bio">Linux & Tiling WM Enthusiast.<br>Current setup: Forest Meadow 🌲</p>
         </div>
+
+        <!-- Блок 2: Любимый лисёнок / питомец -->
+        <div class="bento-item photo-block" style="padding: 10px;">
+            <img src="https://unsplash.com" class="pet-img" alt="Nature/Pet">
+        </div>
+
+        <!-- Блок 3: Соцсети -->
+        <div class="bento-item links-block">
+            <div class="social-row">
+                <a href="https://github.com" target="_blank" class="social-btn">
+                    <i class="fab fa-github"></i>GitHub
+                </a>
+                <a href="https://t.me" target="_blank" class="social-btn">
+                    <i class="fab fa-telegram"></i>Telegram
+                </a>
+                <a href="#" class="social-btn">
+                    <i class="fab fa-discord"></i>Discord
+                </a>
+            </div>
+        </div>
+
+        <!-- Блок 4: Текущий статус -->
+        <div class="bento-item status-block">
+            <span class="status-title">Status</span>
+            <div class="status-value">
+                <div class="pulse-dot"></div> Ricing Sway
+            </div>
+        </div>
+
     </div>
 
 </body>
