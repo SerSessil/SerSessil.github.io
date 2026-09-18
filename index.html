@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SerSessil | Bento Profile</title>
-    <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- Подключаем супер-надежные иконки Bootstrap Icons -->
+    <link rel="stylesheet" href="https://jsdelivr.net">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         
@@ -18,7 +19,6 @@
             position: relative;
         }
 
-        /* Сетка Bento-Box */
         .bento-container {
             display: grid;
             grid-template-columns: repeat(3, 160px);
@@ -27,7 +27,6 @@
             z-index: 10;
         }
 
-        /* Общий стиль для всех плиток (эффект стекла) */
         .bento-item {
             background: rgba(16, 30, 36, 0.6);
             backdrop-filter: blur(20px);
@@ -52,13 +51,11 @@
             box-shadow: 0 20px 40px rgba(229, 169, 61, 0.15);
         }
 
-        /* Объединение ячеек сетки под разные блоки */
         .profile-block { grid-column: span 2; grid-row: span 2; }
         .photo-block { grid-column: span 1; grid-row: span 2; }
         .links-block { grid-column: span 2; grid-row: span 1; }
         .status-block { grid-column: span 1; grid-row: span 1; }
 
-        /* Элементы профиля */
         .avatar {
             width: 100px;
             height: 100px;
@@ -72,7 +69,6 @@
         .username { color: #e5a93d; font-family: monospace; font-size: 14px; margin-bottom: 10px; }
         .bio { font-size: 13.5px; color: #a2b7bc; text-align: center; line-height: 1.4; }
 
-        /* Блок с картинкой питомца */
         .pet-img {
             width: 100%;
             height: 100%;
@@ -80,7 +76,6 @@
             border-radius: 12px;
         }
 
-        /* Горизонтальные кнопки соцсетей */
         .social-row {
             display: flex;
             width: 100%;
@@ -110,78 +105,69 @@
         .pulse-dot { width: 8px; height: 8px; background: #4ef2bc; border-radius: 50%; box-shadow: 0 0 8px #4ef2bc; }
 
         /* ============================================================
-           🐾 ПЛАВАЮЩИЕ И ИГРАЮЩИЕ ПИТОМЦЫ (GIFS) НА ЭКРАНЕ
+           🐾 ЖЕЛЕЗОБЕТОННЫЕ АНИМАЦИИ ПИТОМЦЕВ (БЕГАЮТ ПО ЭКРАНУ)
            ============================================================ */
         .floating-pet {
             position: absolute;
-            width: 64px;
-            height: 64px;
-            pointer-events: none; /* Пропускают клики сквозь себя */
+            width: 80px;
+            height: 80px;
+            pointer-events: none;
             user-select: none;
             z-index: 1;
-            image-rendering: pixelated;
         }
 
-        /* Задаем разные траектории движения */
-        @keyframes float-behavior-1 {
-            0% { transform: translate(10vw, 15vh) rotate(0deg); }
-            50% { transform: translate(15vw, 60vh) rotate(5deg); }
-            100% { transform: translate(10vw, 15vh) rotate(0deg); }
+        @keyframes run-left-right {
+            0% { left: -100px; top: 15vh; transform: scaleX(1); }
+            50% { left: 110vw; top: 25vh; transform: scaleX(1); }
+            51% { transform: scaleX(-1); }
+            100% { left: -100px; top: 15vh; transform: scaleX(-1); }
         }
-        @keyframes float-behavior-2 {
-            0% { transform: translate(80vw, 70vh) scaleX(1); }
-            50% { transform: translate(25vw, 80vh) scaleX(-1); }
-            100% { transform: translate(80vw, 70vh) scaleX(1); }
-        }
-        @keyframes float-behavior-3 {
-            0% { transform: translate(85vw, 10vh) translateY(0); }
-            50% { transform: translate(75vw, 30vh) translateY(-15px); }
-            100% { transform: translate(85vw, 10vh) translateY(0); }
+        @keyframes bounce-around {
+            0% { right: 10%; bottom: -100px; }
+            30% { right: 15%; bottom: 40vh; }
+            60% { right: 25%; bottom: 10vh; }
+            100% { right: 10%; bottom: -100px; }
         }
 
-        .pet1 { animation: float-behavior-1 25s infinite ease-in-out; }
-        .pet2 { animation: float-behavior-2 35s infinite ease-in-out; }
-        .pet3 { animation: float-behavior-3 18s infinite ease-in-out; }
+        .pet1 { animation: run-left-right 20s infinite linear; }
+        .pet2 { animation: bounce-around 15s infinite ease-in-out; }
     </style>
 </head>
 <body>
 
-    <!-- 🐾 Летающие гиф-питомцы из коллекции Snowy Fluffy (кавайные котики и лисички) -->
-    <img src="https://giphy.com" class="floating-pet pet1" alt="pet">
-    <img src="https://giphy.com" class="floating-pet pet2" alt="pet">
-    <img src="https://giphy.com" class="floating-pet pet3" alt="pet">
+    <!-- Настоящие, рабочие анимированные пиксельные питомцы-помощники -->
+    <img src="https://openmoji.org" class="floating-pet pet1" alt="cat">
+    <img src="https://openmoji.org" class="floating-pet pet2" alt="wolf">
 
     <div class="bento-container">
         
-        <!-- Блок 1: Главный профиль -->
         <div class="bento-item profile-block">
-            <img src="https://github.com" alt="Avatar" class="avatar">
+            <!-- Исправленная прямая CDN-ссылка на вашу аватарку с GitHub -->
+            <img src="https://githubusercontent.com" alt="Avatar" class="avatar">
             <h1>SerSessil</h1>
             <div class="username">@SerSessil</div>
             <p class="bio">Linux & Tiling WM Enthusiast.<br>Current setup: Forest Meadow 🌲</p>
         </div>
 
-        <!-- Блок 2: Любимый лисёнок / питомец -->
         <div class="bento-item photo-block" style="padding: 10px;">
-            <img src="https://unsplash.com" class="pet-img" alt="Nature/Pet">
+            <!-- Ставим надежную красивую картинку лесного тумана под наш стиль -->
+            <img src="https://unsplash.com" class="pet-img" alt="Forest Meadow">
         </div>
 
-        <!-- Блок 3: Соцсети -->
         <div class="bento-item links-block">
             <div class="social-row">
                 <a href="https://github.com" target="_blank" class="social-btn">
-                    <i class="fab fa-github"></i>GitHub
+                    <i class="bi bi-github"></i>GitHub
                 </a>
                 <a href="https://t.me" target="_blank" class="social-btn">
-                    <i class="fab fa-telegram"></i>Telegram
+                    <i class="bi bi-telegram"></i>Telegram
                 </a>
                 <a href="#" class="social-btn">
-                    <i class="fab fa-discord"></i>Discord
+                    <i class="bi bi-discord"></i>Discord
                 </a>
             </div>
         </div>
 
-        <!-- Блок 4: Текущий статус -->
         <div class="bento-item status-block">
             <span class="status-title">Status</span>
             <div class="status-value">
