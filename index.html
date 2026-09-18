@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SerSessil | Bento Profile</title>
+    <title>SerSessil | iOS Bento Profile</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
         
         body {
-            background: linear-gradient(135deg, #101e24 0%, #162d2c 50%, #203d3a 100%);
+            /* Задний фон — мягкий лесной градиент под стиль Forest Meadow */
+            background: linear-gradient(135deg, #0e1a1f 0%, #142625 50%, #1c3330 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -17,54 +18,71 @@
             position: relative;
         }
 
-        /* Анимированный лесной туман и частицы на фоне */
-        .bg-particle {
+        /* 🍏 Большие светящиеся цветные сферы на фоне (задают глубину размытия стекла iOS) */
+        .bg-glow {
             position: absolute;
-            background: rgba(78, 242, 188, 0.1);
             border-radius: 50%;
             pointer-events: none;
-            filter: blur(40px);
+            filter: blur(80px);
             z-index: 1;
+            opacity: 0.25;
         }
-        .p1 { width: 300px; height: 300px; top: 10%; left: 10%; animation: float-bg 20s infinite ease-in-out; }
-        .p2 { width: 400px; height: 400px; bottom: 10%; right: 10%; animation: float-bg 25s infinite ease-in-out-reverse; }
+        .glow-1 { width: 450px; height: 450px; top: -5%; left: 15%; background: #4ef2bc; animation: float-glow 25s infinite ease-in-out; }
+        .glow-2 { width: 500px; height: 500px; bottom: -5%; right: 15%; background: #e5a93d; animation: float-glow 30s infinite ease-in-out-reverse; }
 
-        @keyframes float-bg {
+        @keyframes float-glow {
             0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(50px, 40px) scale(1.1); }
+            50% { transform: translate(60px, 50px) scale(1.15); }
             100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* Главный контейнер (повторяет пропорции матового планшета со скриншота) */
+        .main-board {
+            background: rgba(22, 34, 38, 0.35);
+            backdrop-filter: blur(40px) saturate(160%);
+            -webkit-backdrop-filter: blur(40px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            padding: 40px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            z-index: 10;
         }
 
         .bento-container {
             display: grid;
-            grid-template-columns: repeat(3, 160px);
-            grid-auto-rows: 150px;
-            gap: 16px;
-            z-index: 10;
+            grid-template-columns: repeat(3, 170px);
+            grid-auto-rows: 160px;
+            gap: 20px;
         }
 
+        /* 🍏 УЛЬТИМАТИВНОЕ МАТОВОЕ СТЕКЛО В СТИЛЕ iOS */
         .bento-item {
-            background: rgba(16, 30, 36, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(168, 196, 216, 0.15);
-            border-radius: 24px;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            /* Тончайшая неоновая рамка туманного цвета */
+            border: 1.5px solid rgba(168, 196, 216, 0.14);
+            border-radius: 32px; /* Увеличенный радиус закругления Apple */
+            padding: 24px;
             color: #dce9ed;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            /* Двойная тень: глубокая внешняя и мягкая внутренняя отражающая */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25),
+                        inset 0 1px 2px rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
             overflow: hidden;
         }
 
+        /* Мягкий интерактивный отклик при наведении */
         .bento-item:hover {
-            transform: translateY(-4px);
-            border-color: #e5a93d;
-            box-shadow: 0 20px 40px rgba(229, 169, 61, 0.15);
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(229, 169, 61, 0.4);
+            box-shadow: 0 15px 35px rgba(229, 169, 61, 0.1);
         }
 
         .profile-block { grid-column: span 2; grid-row: span 2; }
@@ -72,36 +90,34 @@
         .links-block { grid-column: span 2; grid-row: span 1; }
         .status-block { grid-column: span 1; grid-row: span 1; }
 
-        /* Кастомный текстовый аватар */
+        /* Элементы текстового аватара iOS */
         .avatar-text {
-            width: 100px;
-            height: 100px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
-            border: 3px solid #e5a93d;
-            background: rgba(229, 169, 61, 0.1);
-            margin-bottom: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, rgba(229, 169, 61, 0.15) 0%, rgba(229, 169, 61, 0.03) 100%);
+            margin-bottom: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 42px;
-            font-weight: 800;
+            font-size: 46px;
+            font-weight: 700;
             color: #e5a93d;
-            text-shadow: 0 0 10px rgba(229, 169, 61, 0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
-        h1 { font-size: 24px; color: #fff; margin-bottom: 2px; }
-        .username { color: #e5a93d; font-family: monospace; font-size: 14px; margin-bottom: 10px; }
-        .bio { font-size: 13.5px; color: #a2b7bc; text-align: center; line-height: 1.4; }
+        h1 { font-size: 26px; color: #fff; margin-bottom: 4px; font-weight: 700; letter-spacing: -0.5px; }
+        .username { color: #e5a93d; font-family: monospace; font-size: 14px; margin-bottom: 14px; }
+        .bio { font-size: 14px; color: #a2b7bc; text-align: center; line-height: 1.5; font-weight: 400; }
 
-        /* Елочка */
         .forest-decor {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             height: 100%;
-            color: #78959a;
         }
 
         .social-row {
@@ -110,7 +126,6 @@
             height: 100%;
             justify-content: space-around;
             align-items: center;
-            gap: 10px;
         }
 
         .social-btn {
@@ -118,61 +133,66 @@
             flex-direction: column;
             align-items: center;
             gap: 8px;
-            color: #dce9ed;
+            color: #b0cacc;
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
+            transition: all 0.2s;
         }
-        .social-btn svg { width: 24px; height: 24px; fill: #e5a93d; transition: transform 0.2s; }
-        .social-btn:hover { color: #fff; }
-        .social-btn:hover svg { transform: scale(1.1); fill: #fff; }
+        .social-btn svg { width: 28px; height: 28px; fill: #b0cacc; transition: all 0.2s; }
+        .social-btn:hover { color: #e5a93d; }
+        .social-btn:hover svg { transform: translateY(-2px); fill: #e5a93d; }
 
-        .status-title { font-size: 11px; text-transform: uppercase; color: #78959a; margin-bottom: 5px; letter-spacing: 1px; }
-        .status-value { font-size: 15px; font-weight: 600; color: #bcd6cf; display: flex; align-items: center; gap: 6px; }
-        .pulse-dot { width: 8px; height: 8px; background: #4ef2bc; border-radius: 50%; box-shadow: 0 0 8px #4ef2bc; }
+        .status-title { font-size: 11px; text-transform: uppercase; color: #78959a; margin-bottom: 6px; letter-spacing: 1.5px; font-weight: 600; }
+        .status-value { font-size: 15px; font-weight: 600; color: #bcd6cf; display: flex; align-items: center; gap: 8px; }
+        .pulse-dot { width: 9px; height: 9px; background: #4ef2bc; border-radius: 50%; box-shadow: 0 0 10px #4ef2bc; }
     </style>
 </head>
 <body>
 
-    <div class="bg-particle p1"></div>
-    <div class="bg-particle p2"></div>
+    <!-- Задние цветные излучатели глубины -->
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
 
-    <div class="bento-container">
-        
-        <div class="bento-item profile-block">
-            <div class="avatar-text">S</div>
-            <h1>SerSessil</h1>
-            <div class="username">@SerSessil</div>
-            <p class="bio">Linux & Tiling WM Enthusiast.<br>Current setup: Forest Meadow 🌲</p>
-        </div>
-
-        <div class="bento-item photo-block">
-            <div class="forest-decor">
-                <span style="font-size: 50px;">🌲</span>
-                <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Meadow</span>
+    <!-- Главная стеклянная подложка-планшет -->
+    <div class="main-board">
+        <div class="bento-container">
+            
+            <div class="bento-item profile-block">
+                <div class="avatar-text">S</div>
+                <h1>SerSessil</h1>
+                <div class="username">@SerSessil</div>
+                <p class="bio">Linux & Tiling WM Enthusiast.<br>Current setup: Forest Meadow 🌲</p>
             </div>
-        </div>
 
-        <div class="bento-item links-block">
-            <div class="social-row">
-                <a href="https://github.com/SerSessil" target="_blank" class="social-btn">
-                    <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-                    GitHub
-                </a>
-                <a href="https://steamcommunity.com/profiles/76561199407314442/" target="_blank" class="social-btn">
-                    <svg viewBox="0 0 24 24"><path d="M21.822 7.436a5.5 5.5 0 0 0-7.391-4.14L9.89 5.861a5.503 5.503 0 0 0-4.512 3.653L.664 11.23a.75.75 0 0 0-.122 1.218l3.96 3.428a5.496 5.496 0 0 0 5.441 1.309l4.542-2.565a5.501 5.501 0 0 0 7.337-7.184zm-16.444 4.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-                    Steam
-                </a>
+            <div class="bento-item photo-block">
+                <div class="forest-decor">
+                    <span style="font-size: 55px; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));">🌲</span>
+                    <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #78959a;">Meadow</span>
+                </div>
             </div>
-        </div>
 
-        <div class="bento-item status-block">
-            <span class="status-title">Status</span>
-            <div class="status-value">
-                <div class="pulse-dot"></div> Ricing Sway
+            <div class="bento-item links-block">
+                <div class="social-row">
+                    <a href="https://github.com/SerSessil" target="_blank" class="social-btn">
+                        <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                        GitHub
+                    </a>
+                    <a href="https://steamcommunity.com" target="_blank" class="social-btn">
+                        <svg viewBox="0 0 24 24"><path d="M21.822 7.436a5.5 5.5 0 0 0-7.391-4.14L9.89 5.861a5.503 5.503 0 0 0-4.512 3.653L.664 11.23a.75.75 0 0 0-.122 1.218l3.96 3.428a5.496 5.496 0 0 0 5.441 1.309l4.542-2.565a5.501 5.501 0 0 0 7.337-7.184zm-16.444 4.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                        Steam
+                    </a>
+                </div>
             </div>
-        </div>
 
+            <div class="bento-item status-block">
+                <span class="status-title">Status</span>
+                <div class="status-value">
+                    <div class="pulse-dot"></div> Ricing Sway
+                </div>
+            </div>
+
+        </div>
     </div>
 
 </body>
